@@ -1,0 +1,66 @@
+
+<!--staff_dashboard-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard</title>
+    <style>
+        .navbar {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+          }
+      
+          .nav-item {
+            float: left;
+          }
+      
+          .nav-link {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+          }
+      
+          .nav-link:hover {
+            background-color: #ddd;
+            color: black;
+          }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul class='navbar'>
+            <li class="nav-item">
+                <a href="{{ url_for('home') }}" class="nav-link">
+                    <img src="{{ url_for('static', filename='music_icon.png') }}" width="30" height="30" class="d-inline-block align-top" alt="Logo">
+                </a>
+            </li>
+            <li class ='nav-item'>
+                <a href="{{ url_for('home') }}" class = 'nav-link'>Home</a>
+            </li>
+            <li class = 'nav-item'>
+                <div class = 'drop-down'>
+                <a href="{{url_for('upload')}} " class ='nav-link'>Upload</a>
+            </li>
+                </div>
+           <li class ='nav-item' >
+                <a href="{{url_for('view_files')}}" class = 'nav-link'>View</a>
+            </li>
+            <li class ='nav-item'>
+                <a href="{{ url_for('logout') }}" class = 'nav-link'>Logout</a>
+            </li>
+        </ul>
+    </nav>
+    <div>
+    <h1>Welcome, {{ session['username'] }} (Staff)!</h1>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,94 @@
+
+<!-- file_list.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File List</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        label {
+            margin-right: 10px;
+        }
+
+        select {
+            padding: 5px;
+            font-size: 14px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        h2 {
+            color: #555;
+            margin-top: 20px;
+        }
+
+        li {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-bottom: 5px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 2px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>File List</h1>
+
+    <label for="subject">Select Subject:</label>
+    <select id="subject" name="subject" onchange="location = this.value;">
+        <option value="{{ url_for('view_files', subject='all') }}" {% if selected_subject == 'all' %}selected{% endif %}>All</option>
+        {% for subject in subjects %}
+            <option value="{{ url_for('view_files', subject=subject) }}" {% if selected_subject == subject %}selected{% endif %}>{{ subject }}</option>
+        {% endfor %}
+    </select>
+
+    <ul>
+        {% for subject, files in files_by_subject.items() %}
+            <h2>{{ subject }}</h2>
+            {% for filename in files %}
+                <li>
+                    {{ filename }}
+                    <a href="{{ url_for('download_file', filename=filename) }}" download>
+                        <button type="button">Download</button>
+                    </a>
+                </li>
+            {% endfor %}
+        {% endfor %}
+    </ul>
+</body>
+</html>

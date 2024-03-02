@@ -1,0 +1,99 @@
+<!--upload files-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        label {
+            margin-right: 10px;
+        }
+
+        select, input {
+            padding: 5px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        h2 {
+            color: #555;
+            margin-top: 20px;
+        }
+
+        li {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-bottom: 5px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <h1>File Upload</h1>
+    <form method="POST" action="{{ url_for('upload') }}" enctype="multipart/form-data">
+        <label for="subject">Subject:</label>
+        <select name="subject" id="subject" required>
+            <option value="math" {% if subject == 'math' %}selected{% endif %}>Math</option>
+            <option value="english" {% if subject == 'english' %}selected{% endif %}>English</option>
+            <option value="science" {% if subject == 'science' %}selected{% endif %}>Science</option>
+            <!-- Add more subjects here -->
+        </select>
+        <label for="file">File:</label>
+        <input type="file" name="file" id="file" required>
+        <button type="submit">Upload</button>
+        <br/>
+        <a href="{{ url_for('staff_dashboard') }}">Go Back to Dashboard</a>
+        <br/>
+        <a href="{{ url_for('view_files') }}">View All Files</a>
+        <br/>
+    </form>
+    <ul>
+        {% if subject != 'all' %}
+        <h2>uploded files {{ subject }}</h2>
+        {% for filename in filenames %}
+            <li>{{ filename }}
+                <a href="{{ url_for('download_file', filename=filename) }}" download>
+                    <button type="button">Download</button>
+            </li>
+        {% endfor %}
+        {% endif %}
+    </ul>        
+</body>
+</html>

@@ -1,0 +1,6 @@
+https://www.apachefriends.org/download.html
+
+
+after installing xampp
+start  apachefriends port no. 80
+start mysql port no. 3306
